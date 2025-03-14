@@ -18,10 +18,17 @@ async function connectToDatabase() {
   }
 }
 
-async function main(){
-  await connectToDatabase()
+async function getProducts() {
+  try {
+    const db = await connectToDatabase();
+    const products = await db.collection('products').find({}).toArray();
+    return products;
+  } catch (error) {
+    console.error("Error al consultar datos:", error);
+    throw error;
+  }
 }
 
-main()
-
-module.exports = { connectToDatabase };
+module.exports = {
+  getProducts
+};
