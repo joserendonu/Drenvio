@@ -1,7 +1,10 @@
 // routes.js
 const express = require('express');
+const cors = require('cors');
 const app = express();
+app.use(cors());
 app.use(express.json())
+
 const { getProducts } = require('./mongoConection.js')
 const { postProduct } = require('./mongoConection.js')
 // const mongoConection = require('./mongoConection.js')
@@ -14,6 +17,18 @@ app.use('/', router);  // Usa el enrutador en la ruta raíz
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
+});
+
+
+router.get('/getData', async (req, res) => {
+    try {
+      const products = await getProducts();
+      res.status(200).json({data: products})
+       console.log('***************************************************');
+    } catch (error) {
+      console.error("Error al obtener los productos:", error);
+      res.status(500).json({ message: "Error al obtener los productos", error: error.message });
+    }
 });
 
 
