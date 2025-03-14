@@ -29,6 +29,23 @@ async function getProducts() {
   }
 }
 
+async function postProduct(req, res) {
+  console.log("***************************************************")
+
+  try {
+    const db = await connectToDatabase();
+    const product = req;
+    console.log("***************************************************")
+    console.log(product)
+    const result = await db.collection('products').insertOne(product);
+    return res.status(201).json({ message: 'Producto creado' });
+  } catch (error) {
+    console.error('Error al crear el producto', error);
+    return res.status(500).json({ message: 'Error al crear el producto', error });
+  }
+}
 module.exports = {
-  getProducts
+  getProducts,
+  connectToDatabase,
+  postProduct
 };
