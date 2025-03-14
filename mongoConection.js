@@ -6,8 +6,6 @@ const client = new MongoClient(mongoURI);
 
 async function connectToDatabase() {
   try {
-    console.log("****************************************");
-
     await client.connect();
     console.log("Conexión a la base de datos exitosa");
     const db = client.db('tienda');
@@ -30,13 +28,9 @@ async function getProducts() {
 }
 
 async function postProduct(req, res) {
-  console.log("***************************************************")
-
   try {
     const db = await connectToDatabase();
-    const product = req;
-    console.log("***************************************************")
-    console.log(product)
+    const product = req.body;
     const result = await db.collection('products').insertOne(product);
     return res.status(201).json({ message: 'Producto creado' });
   } catch (error) {
