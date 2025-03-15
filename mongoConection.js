@@ -59,12 +59,29 @@ async function postProduct(req, res) {
 async function putProduct(req, res) {
     try {
         const db = await connectToDatabase();
-        const product = req.body;
+        const product = req;
+
+        const producto = await db.collection('products').findOne({ name:product.name });
+        console.log("********************************")
+        console.log(producto)
+        producto.name = product.name;
+        producto.description = product.description;
+        producto.price = product.price;
+        producto.stock = product.stock;
+        producto.imageUrl = product.imageUrl;
+
+        const result = await db.collection('products').updateOne({ _id: producto._id }, {$set: producto});
+/*
         const result = await db.collection('products').update(product);
+*/
+/*
         return res.status(201).json({message: 'Producto actualizado'});
+*/
     } catch (error) {
         console.error('Error al crear el producto', error);
+/*
         return res.status(500).json({message: 'Error al crear el producto', error});
+*/
     }
 }
 // const { ProductModel } = require('./product.model')/*
