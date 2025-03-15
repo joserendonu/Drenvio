@@ -45,12 +45,11 @@ async function getProductByName(name) {
         throw error;
     }
 }
-/*
 async function getProductById(id) {
     try {
         const db = await connectToDatabase();
         // Aqui convertimos el ID a ObjectID
-        const producto = await db.collection('products').findOne({ _id:id });
+        const producto = await db.collection('products').findOne({ _id: new ObjectId(id)});
         console.log("*******************");
         console.log(producto);
         return producto;
@@ -59,7 +58,6 @@ async function getProductById(id) {
         throw error;
     }
 }
-*/
 
 async function postProduct(req, res) {
     try {
@@ -72,19 +70,24 @@ async function postProduct(req, res) {
         return res.status(500).json({message: 'Error al crear el producto', error});
     }
 }
-async function putProduct(req, res) {
+async function putProduct(req, res, id) {
     try {
         const db = await connectToDatabase();
-        const product = req;
+        const product = req.body;
+        console.log("***************************asdfasdfasdf*****")
+        console.log(product)
+        const producto = await db.collection('products').findOne({ _id: new ObjectId(id)});
 
-        const producto = await db.collection('products').findOne({ name:product.name });
-        console.log("********************************")
-        console.log(producto)
         producto.name = product.name;
         producto.description = product.description;
         producto.price = product.price;
         producto.stock = product.stock;
         producto.imageUrl = product.imageUrl;
+        producto.createdAt = product.createdAt;
+        producto.updatedAt = product.updatedAt;
+        producto.basePrice = product.basePrice;
+        producto.brand = product.brand;
+        producto.sku = product.sku;
 
         const result = await db.collection('products').updateOne({ _id: producto._id }, {$set: producto});
 /*
@@ -119,4 +122,5 @@ module.exports = {
     putProduct,
     getProductByName,
     delProduct,
+    getProductById,
 };
