@@ -4,7 +4,7 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 const {getProducts} = require('./mongoConection.js')
-const {postProduct} = require('./mongoConection.js')
+const {postProduct,putProduct} = require('./mongoConection.js')
 const router = express.Router();
 port = 3000;  // Puerto donde escuchará el servidor
 app.use('/', router);  // Usa el enrutador en la ruta raíz
@@ -49,9 +49,12 @@ app.use('/', router);  // Usa el enrutador en la ruta raíz
             res.status(500).json({message: "Error al crear el producto"}); // Respuesta con error.
         }
     });
-   /* router.put('/updp/<id_product>', async (req, res) => {
+    router.put('/updp/:id', async (req, res) => {
+        const id  = req.params.id;
+        console.log("***********************************")
+        console.log(id)
         try {
-            producto a _a_cancelar = db.reservas.find_one({"_id": ObjectId(id_reserva)})
+            /* producto_actualizar = putProduct(req.body, res)
 
             const uProduct = {
                 name: req.body.name,
@@ -60,13 +63,15 @@ app.use('/', router);  // Usa el enrutador en la ruta raíz
                 stock: req.body.stock,
                 category: req.body.category,
             };
-            const savedProduct = await postProduct(req, res); // Guardamos el producto en la base de datos.
-            /!*res.status(201).json({message: "Producto creado exitosamente", product: savedProduct});*!/
+            producto_actualizar = putProduct(req.body, res)
+
+            const savedProduct = await postProduct(req, res);*/ // Guardamos el producto en la base de datos.
+            /*res.status(201).json({message: "Producto creado exitosamente", product: savedProduct});*/
         } catch (error) {
             console.error("Error al crear el producto:", error);
             res.status(500).json({message: "Error al crear el producto"}); // Respuesta con error.
         }
-    });*/
+    });
 }
 
 

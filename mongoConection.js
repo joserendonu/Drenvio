@@ -45,6 +45,22 @@ async function getProductByName(name) {
         throw error;
     }
 }
+/*
+async function getProductById(id) {
+    try {
+        const db = await connectToDatabase();
+        // Aqui convertimos el ID a ObjectID
+        const producto = await db.collection('products').findOne({ _id:id });
+        console.log("*******************");
+        console.log(producto);
+        return producto;
+    } catch (error) {
+        console.error('Error al consultar datos:', error);
+        throw error;
+    }
+}
+*/
+
 async function postProduct(req, res) {
     try {
         const db = await connectToDatabase();
@@ -84,29 +100,6 @@ async function putProduct(req, res) {
 */
     }
 }
-// const { ProductModel } = require('./product.model')/*
-// async function getProductByDescription(description){
-//     console.log('**********************************');
-//     console.log('Buscando producto por descripción...');
-//
-//     try {
-//         const db = await connectToDatabase();
-//
-//         // Aqui vas a buscar el producto en la collecion 'products' usando la description
-//         const products = await db.collection('products').find({ description: description }).exec();
-// /!*
-//         const products = await ProductModel.find({ description }).exec();
-// *!/
-//         console.log('**********************************');
-//         console.log(products);
-//
-//         return products;
-//
-//     } catch (error) {
-//         console.error('Error al consultar datos: ', error);
-//         throw error;
-//     }
-// }*/
 async function delProduct(id) {
     try {
         const db = await connectToDatabase();
