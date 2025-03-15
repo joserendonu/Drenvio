@@ -1,4 +1,4 @@
-const { getProductByName,getProducts, getProductsByDescription, putProduct} = require('./mongoConection'); // Importa las funciones de mongoConnection.js
+const { getProductByName,getProducts, getProductsByDescription, putProduct, delProduct} = require('./mongoConection'); // Importa las funciones de mongoConnection.js
 const {ObjectId} = require('mongodb');
 
 async function run() {
@@ -12,7 +12,7 @@ async function run() {
         }
         try {
             const descriptionToSearch = "Test";
-            const productByDescription = await putProduct(body)
+            const productByDescription = await delProduct('67b67ec745f485b95e924ff3')
 /*
             console.log("productByDescription", productByDescription);
 */

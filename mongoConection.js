@@ -107,6 +107,17 @@ async function putProduct(req, res) {
 //         throw error;
 //     }
 // }*/
+async function delProduct(id) {
+    try {
+        const db = await connectToDatabase();
+        const producto = await db.collection('products').deleteOne({ _id: new ObjectId(id) });
+    } catch (error) {
+        console.error('Error al crear el producto', error);
+        /*
+                return res.status(500).json({message: 'Error al crear el producto', error});
+        */
+    }
+}
 
 module.exports = {
     getProducts,
@@ -114,4 +125,5 @@ module.exports = {
     postProduct,
     putProduct,
     getProductByName,
+    delProduct,
 };
