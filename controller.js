@@ -17,11 +17,11 @@ app.use('/', router);  // Usa el enrutador en la ruta raíz
     /*Testing connection*/
     router.get('/getData', async (req, res) => {
         try {
-            const products = await getProducts();
-            res.status(200).json({data: products})
+            console.error("test consumo front");
+            res.status(500).json({message: "Error al obtener los productos", error: error.message});
             console.log('***************************************************');
         } catch (error) {
-            console.error("Error al obtener los productos:", error);
+            console.error("test consumo front");
             res.status(500).json({message: "Error al obtener los productos", error: error.message});
         }
     });
@@ -44,7 +44,6 @@ app.use('/', router);  // Usa el enrutador en la ruta raíz
                 category: req.body.category,
             };
             const savedProduct = await postProduct(req, res); // Guardamos el producto en la base de datos.
-            /*res.status(201).json({message: "Producto creado exitosamente", product: savedProduct});*/
         } catch (error) {
             console.error("Error al crear el producto:", error);
             res.status(500).json({message: "Error al crear el producto"}); // Respuesta con error.
