@@ -56,3 +56,4 @@ EL FINAL DE LA URL ES EL _id
 BORAR UN PRODUCTO
 DELETE
 http://localhost:3000/delet/67d5bcb37c093abae2fa7c60
+
